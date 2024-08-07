@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "producto": "Consumer Non-Durables",
+        "color": "Aquamarine",
+        "precio": "S/3.36"
+    },
+    {
+        "id": 2,
+        "producto": "Miscellaneous",
+        "color": "Maroon",
+        "precio": "S/1.96"
+    },
+    {
+        "id": 3,
+        "producto": "Public Utilities",
+        "color": "Purple",
+        "precio": "S/2.86"
+    },
+    {
+        "id": 4,
+        "producto": "Technology",
+        "color": "Puce",
+        "precio": "S/0.70"
+    }
+    
+]
