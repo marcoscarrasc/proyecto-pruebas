@@ -1,27 +1,30 @@
 [
     {
         "id": 1,
-        "producto": "Consumer Non-Durables",
+        "producto": "polo",
         "color": "Aquamarine",
-        "precio": "S/3.36"
+        "precio": 4,
+        "imagen":"" 
     },
     {
         "id": 2,
         "producto": "Miscellaneous",
         "color": "Maroon",
-        "precio": "S/1.96"
+        "precio": 7,
+        "imagen": ""
     },
     {
         "id": 3,
         "producto": "Public Utilities",
         "color": "Purple",
-        "precio": "S/2.86"
+        "precio": 9,
+        "imagen": ""
     },
     {
         "id": 4,
         "producto": "Technology",
         "color": "Puce",
-        "precio": "S/0.70"
+        "precio": 10,
+        "imagen": ""
     }
-    
 ]

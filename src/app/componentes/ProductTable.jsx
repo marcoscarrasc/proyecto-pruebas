@@ -1,4 +1,4 @@
-
+'use client'
 import { useState, useEffect } from "react"
 
 export default function ProductTable({ productos, update }) {
@@ -6,16 +6,16 @@ export default function ProductTable({ productos, update }) {
 
 
     return (
-        <table>
+        <table className="h-96 w-full ">
             <thead>
-                <tr>
-                    {titles.map(title => (<th>{title}</th>))}
+                <tr className="bg-blue-400 ">
+                    {titles.map(title => (<th >{title}</th>))}
                 </tr>
 
 
 
             </thead>
-            <tbody>
+            <tbody className="bg-slate-200">
                 {productos?.map((producto, index) => (
                     <ProductRow producto={producto} update={update} />
                 ))}
@@ -40,10 +40,10 @@ const ProductRow = ({ producto, update }) => {
     }
 
     return (
-        <tr key={product.id}>
+        <tr key={product.id} >
             <td>
                 <div className="flex items-center mb-4">
-                    <input id="default-checkbox" type="checkbox" value="" className=" w-8 text-blue-600"></input>
+                    <input id="default-checkbox" type="checkbox" value={product} className=" w-8 text-blue-600"></input>
                     <label for="default-checkbox" ></label>
                 </div>
             </td>
@@ -51,12 +51,15 @@ const ProductRow = ({ producto, update }) => {
             <td><span>{product.color}</span></td>
             <td><span >S/{product.precio}</span></td>
             <td>
-                <input min={0} type="number" value={product.cantidad} onChange={onUpdateQuantity} />
+                <input min={0} type="number" value={product.cantidad} onChange={onUpdateQuantity} className="w-12"/>
             </td>
             <td>
                 <span>{product.precio * product.cantidad} </span>
             </td>
 
         </tr>
+
+
+
     )
 }
