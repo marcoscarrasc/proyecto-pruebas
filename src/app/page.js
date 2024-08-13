@@ -1,26 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-
-
+import Navbar from "./componentes/Navbar";
 
 export default function Home() {
   return (
-    <main >
-      <div className=" bg-cyan-300">
-        <Link href={"/Gifs"} >ir a Gifs</Link>
-
-
-      </div>
-      <div>
-        <Link href={"/personajes"} >Dragon Ball Z</Link>
-      </div>
-      <div>
-        <Link href={"/Enlaces"}>Home</Link>
-      </div>
-     <div>
-      <Link href={"/productos"}>Productos</Link>
-     </div>
-      
-    </main>
+    <div>
+      <Navbar />
+      <main>
+        <h1 className="text-center text-2xl">Bienvenido a la página de inicio</h1>
+      </main>
+    </div>
   );
 }

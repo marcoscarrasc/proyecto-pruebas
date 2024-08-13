@@ -2,64 +2,83 @@
 import { useState, useEffect } from "react"
 
 export default function ProductTable({ productos, update }) {
-    const titles = ["", "producto", "color", "precio", "cantidad", "total"]
-
+    const titles = ["", "Nombre", "Imagen", "Categoría", "Precio", "Cantidad", "Total"]
 
     return (
-        <table className="h-96 w-full ">
-            <thead>
-                <tr className="bg-blue-400 ">
-                    {titles.map(title => (<th >{title}</th>))}
-                </tr>
-
-
-
-            </thead>
-            <tbody className="bg-slate-200">
-                {productos?.map((producto, index) => (
-                    <ProductRow producto={producto} update={update} />
-                ))}
-            </tbody>
-        </table>
+        <div className="overflow-x-auto">
+            <table className="min-w-full bg-gray-800 text-gray-200 border border-gray-700 rounded-lg shadow-lg">
+                <thead>
+                    <tr className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        {titles.map((title, index) => (
+                            <th key={index} className="py-3 px-4 text-left font-semibold text-sm">{title}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody className="bg-gray-900">
+                    {productos?.map((producto) => (
+                        <ProductRow key={producto.id} producto={producto} update={update} />
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 
 const ProductRow = ({ producto, update }) => {
-
     const [product, setProduct] = useState(producto)
 
     useEffect(() => {
-        setProduct({ ...producto, cantidad: 0 })
-    }, [])
+        if (product.seleccionado && (product.cantidad === undefined || product.cantidad === 0)) {
+            setProduct({ ...product, cantidad: 1 });
+        }
+    }, [product.seleccionado]);
 
     const onUpdateQuantity = (event) => {
-        const value = event.target.value
-        const newProduct = { ...product, cantidad: parseInt(value) }
+        const value = Math.max(0, event.target.value);
+        const newProduct = { ...product, cantidad: value }
+        setProduct(newProduct)
+        update(newProduct)
+    }
+
+    const onUpdateStatus = (event) => {
+        const value = event.target.checked;
+        const newProduct = { ...product, seleccionado: value };
+
+        if (value && (product.cantidad === undefined || product.cantidad === 0)) {
+            newProduct.cantidad = 1;
+        }
+
         setProduct(newProduct)
         update(newProduct)
     }
 
     return (
-        <tr key={product.id} >
-            <td>
-                <div className="flex items-center mb-4">
-                    <input id="default-checkbox" type="checkbox" value={product} className=" w-8 text-blue-600"></input>
-                    <label for="default-checkbox" ></label>
-                </div>
+        <tr className="hover:bg-gray-700 transition-colors">
+            <td className="py-2 px-4">
+                <input
+                    id={`checkbox-${product.id}`}
+                    type="checkbox"
+                    checked={product.seleccionado || false}
+                    onChange={onUpdateStatus}
+                    className="form-checkbox h-6 w-6 text-blue-400 border-blue-500 bg-gray-800"
+                />
             </td>
-            <td><span>{product.producto}</span></td>
-            <td><span>{product.color}</span></td>
-            <td><span >S/{product.precio}</span></td>
-            <td>
-                <input min={0} type="number" value={product.cantidad} onChange={onUpdateQuantity} className="w-12"/>
+            <td className="py-2 px-4">{product.title}</td>
+            <td className="py-2 px-4">
+                <img src={product.image} alt="Product" className="max-w-[50px] h-[60px] object-cover rounded-lg shadow-md border border-gray-700" />
             </td>
-            <td>
-                <span>{product.precio * product.cantidad} </span>
+            <td className="py-2 px-4">{product.category}</td>
+            <td className="py-2 px-4">S/{product.price}</td>
+            <td className="py-2 px-4">
+                <input
+                    min={0}
+                    type="number"
+                    value={product.cantidad || 0}
+                    onChange={onUpdateQuantity}
+                    className="w-24 px-2 py-1 border border-gray-700 bg-gray-800 rounded-md text-gray-300"
+                />
             </td>
-
+            <td className="py-2 px-4">{(product.price * (product.cantidad || 0)).toFixed(2)}</td>
         </tr>
-
-
-
     )
 }
